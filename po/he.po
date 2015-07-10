@@ -23,34 +23,34 @@ msgstr "לחץ כדי להפעיל/להפסיק את האנימציה"
 
 #: src/tpfanadmin/globals.py:85
 msgid ""
-"Unable to connect to ThinkPad Fan Control daemon (tpfand).\n"
+"Unable to connect to ThinkPad Fan Control daemon (tpfancod).\n"
 "\n"
 "Please make sure you are running this program on a supported IBM/Lenovo "
 "ThinkPad, a recent thinkpad_acpi module is loaded with fan_control=1 and "
-"tpfand has been started."
+"tpfancod has been started."
 msgstr ""
-"לא ניתן להתחבר לסוכן השליטה במאווררים של ThinkPad (tpfand).\n"
+"לא ניתן להתחבר לסוכן השליטה במאווררים של ThinkPad (tpfancod).\n"
 "\n"
 "נא וודא שתוכנה זו רצה על דגמי IBM/Lenovo ThinkPad נתמכים, שמודול "
-"thinkpad_acpi module is עדכני פעיל עם הערך fan_control=1 ו-tpfand הופעל."
+"thinkpad_acpi module is עדכני פעיל עם הערך fan_control=1 ו-tpfancod הופעל."
 
 #: src/tpfanadmin/globals.py:87 src/tpfanadmin/globals.py:97
-#: share/tpfan-admin.glade:55
+#: share/tpfanco-admin.glade:55
 msgid "ThinkPad Fan Control Configuration"
 msgstr "הגדרת השליטה במאווררים של ThinkPad"
 
 #: src/tpfanadmin/globals.py:95
 #, python-format
 msgid ""
-"The version of the ThinkPad Fan Control daemon (tpfand) installed on your "
+"The version of the ThinkPad Fan Control daemon (tpfancod) installed on your "
 "system is too old.\n"
 "\n"
-"This version of tpfan-admin requires tpfand %s or later, however tpfand %s "
+"This version of tpfanco-admin requires tpfancod %s or later, however tpfancod %s "
 "is installed on your system."
 msgstr ""
-"גרסאת סוכן השליטה במאווררים של ThinkPad (tpfand) המותקנת על מחשבך ישנה מדי.\n"
+"גרסאת סוכן השליטה במאווררים של ThinkPad (tpfancod) המותקנת על מחשבך ישנה מדי.\n"
 "\n"
-"גירסה זו של tpfan-admin דורשת את tpfand %s או מאוחר יותר, על כל פנים tpfand "
+"גירסה זו של tpfanco-admin דורשת את tpfancod %s או מאוחר יותר, על כל פנים tpfancod "
 "%s מותקנת במחשבך."
 
 #: src/tpfanadmin/temperaturedialog.py:53
@@ -144,8 +144,8 @@ msgstr ""
 #: src/tpfanadmin/temperaturedialog.py:161
 #, python-format
 msgid ""
-"Daemon (tpfand) version: %s\n"
-"GTK+ configuration UI (tpfan-admin) version: %s\n"
+"Daemon (tpfancod) version: %s\n"
+"GTK+ configuration UI (tpfanco-admin) version: %s\n"
 "\n"
 msgstr ""
 
@@ -157,7 +157,7 @@ msgstr ""
 msgid "Unlocked"
 msgstr ""
 
-#: src/tpfanadmin/temperaturedialog.py:311 share/tpfan-admin.glade:689
+#: src/tpfanadmin/temperaturedialog.py:311 share/tpfanco-admin.glade:689
 msgid "Unlock"
 msgstr ""
 
@@ -223,21 +223,21 @@ msgstr ""
 msgid "Name for temperature sensor %d"
 msgstr ""
 
-#: share/tpfan-admin.glade:8
+#: share/tpfanco-admin.glade:8
 msgid "ThinkPad Fan Control"
 msgstr ""
 
-#: share/tpfan-admin.glade:16
+#: share/tpfanco-admin.glade:16
 msgid ""
 "Monitors the temperature and controls the fan-speed of IBM/Lenovo ThinkPad "
 "Notebooks"
 msgstr ""
 
-#: share/tpfan-admin.glade:78
+#: share/tpfanco-admin.glade:78
 msgid "<b>Control system fan by software</b>"
 msgstr ""
 
-#: share/tpfan-admin.glade:97
+#: share/tpfanco-admin.glade:97
 msgid ""
 "Allows you to make your computer quieter by configuring the system fan to "
 "turn on at higher temperatures \n"
@@ -246,86 +246,86 @@ msgid ""
 "high temperatures.</b>"
 msgstr ""
 
-#: share/tpfan-admin.glade:122
+#: share/tpfanco-admin.glade:122
 msgid "<b>Temperatures</b>"
 msgstr ""
 
-#: share/tpfan-admin.glade:148
+#: share/tpfanco-admin.glade:148
 msgid "Manually configure system fan trigger temperatures"
 msgstr ""
 
-#: share/tpfan-admin.glade:209
+#: share/tpfanco-admin.glade:209
 msgid "°C"
 msgstr ""
 
-#: share/tpfan-admin.glade:227
+#: share/tpfanco-admin.glade:227
 msgid "°F"
 msgstr ""
 
-#: share/tpfan-admin.glade:277
+#: share/tpfanco-admin.glade:277
 msgid "Hysteresis"
 msgstr ""
 
-#: share/tpfan-admin.glade:306
+#: share/tpfanco-admin.glade:306
 msgid "°K"
 msgstr ""
 
-#: share/tpfan-admin.glade:333
+#: share/tpfanco-admin.glade:333
 msgid "Interval cooling mode: duration of an interval"
 msgstr ""
 
-#: share/tpfan-admin.glade:363 share/tpfan-admin.glade:422
+#: share/tpfanco-admin.glade:363 share/tpfanco-admin.glade:422
 msgid " s "
 msgstr ""
 
-#: share/tpfan-admin.glade:390
+#: share/tpfanco-admin.glade:390
 msgid "Interval cooling mode: minimum delay between intervals"
 msgstr ""
 
-#: share/tpfan-admin.glade:459
+#: share/tpfanco-admin.glade:459
 msgid "Advanced options"
 msgstr ""
 
-#: share/tpfan-admin.glade:498
+#: share/tpfanco-admin.glade:498
 msgid "<b>Monitoring</b>"
 msgstr ""
 
-#: share/tpfan-admin.glade:527
+#: share/tpfanco-admin.glade:527
 msgid "Profile comments"
 msgstr ""
 
-#: share/tpfan-admin.glade:547
+#: share/tpfanco-admin.glade:547
 msgid "Profile information"
 msgstr ""
 
-#: share/tpfan-admin.glade:588
+#: share/tpfanco-admin.glade:588
 msgid "Used fan profiles"
 msgstr ""
 
-#: share/tpfan-admin.glade:601
+#: share/tpfanco-admin.glade:601
 msgid "Notebook model"
 msgstr ""
 
-#: share/tpfan-admin.glade:663
+#: share/tpfanco-admin.glade:663
 msgid "gtk-about"
 msgstr ""
 
-#: share/tpfan-admin.glade:676
+#: share/tpfanco-admin.glade:676
 msgid "Submit profile..."
 msgstr ""
 
-#: share/tpfan-admin.glade:702
+#: share/tpfanco-admin.glade:702
 msgid "gtk-close"
 msgstr ""
 
-#: share/tpfan-admin.glade:721
+#: share/tpfanco-admin.glade:721
 msgid "Change sensor name"
 msgstr ""
 
-#: share/tpfan-admin.glade:776
+#: share/tpfanco-admin.glade:776
 msgid "gtk-ok"
 msgstr ""
 
-#: share/tpfan-admin.glade:786
+#: share/tpfanco-admin.glade:786
 msgid "gtk-cancel"
 msgstr ""

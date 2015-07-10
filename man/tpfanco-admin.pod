@@ -1,0 +1,26 @@
+=head1 NAME
+
+tpfanco-admin - Monitors the temperatures and configures fan speeds on IBM/Lenovo ThinkPad-Notebooks.
+
+=head1 SYNOPSIS
+
+tpfanco-admin
+
+=head1 DESCRIPTION
+
+B<tpfanco-admin> is a GTK+ configuration and monitoring interface for B<tpfand>.
+
+=head1 BUGS
+
+Please report bugs at https://github.com/tpfanco/tpfanco-admin/issues
+
+=head1 AUTHORS
+
+B<tpfanco-admin> was written by Vladyslav Shtabovenko <dev@vshtabov.df-kunde.de> and Sebastian Urban <surban84@googlemail.com> and is released under the GNU General Public License, version 3 or later.
+
+=head1 SEE ALSO
+
+B<tpfancod>(8)
+
+=cut
+

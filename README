@@ -1,10 +1,10 @@
-ThinkPad Fan Control GTK+ configuration (tpfan-admin)
+ThinkPad Fan Control GTK+ configuration (tpfanco-admin)
 =====================================================
 
-tpfan-admin is a GTK+ configuration and monitoring interface for tpfand.
-tpfan-admin communicates entirely over DBus with tpfand.
+tpfanco-admin is a GTK+ configuration and monitoring interface for tpfancod.
+tpfanco-admin communicates entirely over DBus with tpfancod.
 
-tpfan-admin is written entirely in Python and licensed under the GNU GPL version 3.
+tpfanco-admin is written entirely in Python and licensed under the GNU GPL version 3.
 
 REQUIREMENTS
 ============
@@ -14,14 +14,14 @@ libglade with bindings for Python
 librsvg with bindings for Python
 DBus with bindings for Python
 GNU gettext with bindings for Python
-tpfand
+tpfancod
 
 INSTALLATION
 ============
-1. Adjust src/tpfanadmin/build.py to your needs.
+1. Adjust src/tpfanco_admin/build.py to your needs.
 2. Run make install
-3. Create menu entries to launch /usr/bin/tpfan-admin. (optional)
-4. Install the man page tpfan-admin.1 (optional)
+3. Create menu entries to launch /usr/bin/tpfanco-admin. (optional)
+4. Install the man page tpfanco-admin.1 (optional)
 
 You can uninstall this program by running make uninstall.
 

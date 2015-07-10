@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 #
 # tpfanco - controls the fan-speed of IBM/Lenovo ThinkPad Notebooks
-# Copyright (C) 2011-2012 Vladyslav Shtabovenko
+# Copyright (C) 2011-2015 Vladyslav Shtabovenko
 # Copyright (C) 2007-2009 Sebastian Urban
 #
 # This program is free software: you can redistribute it and/or modify
@@ -18,13 +18,3 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-
-import sys
-if not ('/usr/share/pyshared' in sys.path):
-    sys.path.append('/usr/share/pyshared')
-
-import gettext
-import build
-
-# i18n
-gettext.install(build.gettext_domain, build.locale_dir, unicode=1)
