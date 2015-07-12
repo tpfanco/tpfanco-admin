@@ -95,7 +95,6 @@ class tpfan_admin(object):
 
         # i18n
         gettext.install(self.gettext_domain, self.locale_dir, unicode=1)
-
         gtk.glade.bindtextdomain(self.gettext_domain, self.locale_dir)
         gtk.glade.textdomain(self.gettext_domain)
 
@@ -140,12 +139,6 @@ class tpfan_admin(object):
         # Load icons
         gtk.window_set_default_icon_from_file(
             self.data_dir + self.icon_filename)
-
-        # Init dialogs
-        tdsettings['about_dialog'] = tdsettings[
-            'my_xml'].get_widget('aboutDialog')
-        tdsettings['add_sensor_dialog'] = tdsettings[
-            'my_xml'].get_widget('addSensorDialog')
 
         temperature_dialog = temperaturedialog.TemperatureDialog(
             tdsettings)

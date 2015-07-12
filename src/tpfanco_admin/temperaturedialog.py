@@ -67,8 +67,6 @@ class TemperatureDialog:
     def __init__(self, tdsettings):
 
         self.my_xml = tdsettings['my_xml']
-        self.about_dialog = tdsettings['about_dialog']
-        self.add_sensor_dialog = tdsettings['add_sensor_dialog']
         self.controller = tdsettings['controller']
         self.act_settings = tdsettings['act_settings']
         self.pref_filename = tdsettings['pref_filename']
@@ -85,6 +83,8 @@ class TemperatureDialog:
             self.logger.setLevel(logging.ERROR)
 
         self.window = self.my_xml.get_widget('temperatureDialog')
+        self.about_dialog = self.my_xml.get_widget('aboutDialog')
+        self.add_sensor_dialog = self.my_xml.get_widget('addSensorDialog')
 
         self.cbEnable = self.my_xml.get_widget('checkbuttonEnable')
         self.cbEnable.connect('toggled', self.enable_changed, None)

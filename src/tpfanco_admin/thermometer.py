@@ -305,7 +305,7 @@ class Thermometer(gtk.DrawingArea):
         elif event.button == 1 and self.mouse_over_sensor_name:
             # change sensor name
             self.sensor_name_entry_title.set_text(
-                _("Name for temperature sensor %d") % self.sensor_id)
+                _("Name for temperature sensor %s") % self.sensor_id)
             self.sensor_name_entry.set_text(self.sensor_name)
             self.sensor_name_entry.grab_focus()
             self.sensor_name_entry.select_region(0, 100)
