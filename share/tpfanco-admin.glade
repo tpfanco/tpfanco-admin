@@ -67,10 +67,11 @@ Vladyslav Shtabovenko &lt;dev@vshtabov.df-kunde.de&gt;</property>
             <property name="can_focus">False</property>
             <property name="layout_style">end</property>
             <child>
-              <widget class="GtkButton" id="buttonOk">
+              <widget class="GtkButton" id="buttonAddSensorOK">
                 <property name="label">gtk-ok</property>
                 <property name="response_id">1</property>
                 <property name="visible">True</property>
+                <property name="sensitive">False</property>
                 <property name="can_focus">True</property>
                 <property name="can_default">True</property>
                 <property name="has_default">True</property>
@@ -114,8 +115,7 @@ Vladyslav Shtabovenko &lt;dev@vshtabov.df-kunde.de&gt;</property>
               <widget class="GtkComboBox" id="comboboxSensorType">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="items" translatable="yes">hwmon
-ibm_thermal</property>
+                <property name="items" translatable="yes"/>
               </widget>
               <packing>
                 <property name="expand">True</property>
@@ -124,7 +124,7 @@ ibm_thermal</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkLabel" id="label3">
+              <widget class="GtkLabel" id="labelSensorPath">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="xalign">0.4699999988079071</property>
@@ -153,7 +153,7 @@ ibm_thermal</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkLabel" id="label1">
+              <widget class="GtkLabel" id="labelSensorScaling">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="yalign">0.44999998807907104</property>
@@ -182,7 +182,7 @@ ibm_thermal</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkLabel" id="label2">
+              <widget class="GtkLabel" id="labelSensorName">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="label" translatable="yes">Name</property>
@@ -194,7 +194,7 @@ ibm_thermal</property>
               </packing>
             </child>
             <child>
-              <widget class="GtkEntry" id="entrySensorName">
+              <widget class="GtkEntry" id="entrySensorName2">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="invisible_char">•</property>

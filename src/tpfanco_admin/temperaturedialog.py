@@ -65,7 +65,7 @@ class TemperatureDialog:
     override = False
 
     def __init__(self, tdsettings):
-
+        self.tdsettings = tdsettings
         self.my_xml = tdsettings['my_xml']
         self.controller = tdsettings['controller']
         self.act_settings = tdsettings['act_settings']
@@ -81,6 +81,12 @@ class TemperatureDialog:
         else:
             self.logger.setLevel(logging.ERROR)
 
+        # i18n
+        gettext.install(self.gettext_domain, self.locale_dir, unicode=1)
+        self.load_text()
+
+        # connect dialogs
+
         self.window = self.my_xml.get_widget('temperatureDialog')
         self.about_dialog = self.my_xml.get_widget('aboutDialog')
         self.add_sensor_dialog = self.my_xml.get_widget('addSensorDialog')
@@ -91,10 +97,6 @@ class TemperatureDialog:
         self.cbOverride = self.my_xml.get_widget('checkbuttonOverride')
         self.cbOverride.connect('toggled', self.override_changed, None)
 
-        # i18n
-        gettext.install(self.gettext_domain, self.locale_dir, unicode=1)
-        self.load_text()
-
         self.hsHysteresis = self.my_xml.get_widget('hscaleHysteresis')
         self.hsHysteresis.connect('value-changed', self.options_changed, None)
 
@@ -102,16 +104,8 @@ class TemperatureDialog:
             'scrolledwindowThermometers')
 
         self.vbThermometers = self.my_xml.get_widget('vboxThermometers')
-        self.thermos = {}
-        for n in self.controller.get_temperatures():
-            therm = thermometer.Thermometer(tdsettings)
-            therm.sensor_id = n
-            therm.dialog_parent = self.window
-            therm.set_size_request(self.thermometer_width, therm.wanted_height)
-            therm.connect('trigger-changed', self.triggers_changed, n)
-            therm.connect('name-changed', self.sensor_name_changed, n)
-            self.thermos[n] = therm
-            self.vbThermometers.pack_start(therm)
+
+        self.init_thermos()
 
         self.rbCelcius = self.my_xml.get_widget('radiobuttonCelcius')
         self.rbFahrenheit = self.my_xml.get_widget('radiobuttonFahrenheit')
@@ -171,6 +165,18 @@ class TemperatureDialog:
         while (not (retval == 1 or retval == gtk.RESPONSE_DELETE_EVENT)):
             retval = self.window.run()
         self.window.destroy()
+
+    def init_thermos(self):
+        self.thermos = {}
+        for n in self.controller.get_temperatures():
+            therm = thermometer.Thermometer(self.tdsettings)
+            therm.sensor_id = n
+            therm.dialog_parent = self.window
+            therm.set_size_request(self.thermometer_width, therm.wanted_height)
+            therm.connect('trigger-changed', self.triggers_changed, n)
+            therm.connect('name-changed', self.sensor_name_changed, n)
+            self.thermos[n] = therm
+            self.vbThermometers.pack_start(therm)
 
     def load_text(self):
 
@@ -258,12 +264,79 @@ class TemperatureDialog:
         """Add sensor was clicked"""
         self.add_sensor_dialog.set_transient_for(self.window)
         # TODO: need to finish this
-        xxx = self.my_xml.get_widget('comboboxSensorType')
-        self.add_sensor_dialog.run()
+
+        def combobox_changed(widget, data=None):
+            entry_sensor_path.set_text('')
+            entry_sensor_scaling.set_text('')
+            entry_sensor_name.set_text('')
+            if combobox_sensor_type.get_active() != 0:
+                entry_sensor_path.hide()
+                label_sensor_path.hide()
+                entry_sensor_scaling.hide()
+                label_sensor_scaling.hide()
+            else:
+                entry_sensor_path.show()
+                label_sensor_path.show()
+                entry_sensor_scaling.show()
+                label_sensor_scaling.show()
+
+        def text_entries_changed(widget, data=None):
+            button_add_sensor.set_sensitive(False)
+            if combobox_sensor_type.get_active() != 0:
+                if len(entry_sensor_name.get_text()) != 0:
+                    button_add_sensor.set_sensitive(True)
+            else:
+                if self.act_settings.check_if_hwmon_sensor_exists(entry_sensor_path.get_text()) and \
+                        isinstance(entry_sensor_scaling.get_text(), float) and \
+                        len(entry_sensor_name.get_text()) != 0:
+                    button_add_sensor.set_sensitive(True)
+
+        combobox_sensor_type = self.my_xml.get_widget('comboboxSensorType')
+        entry_sensor_path = self.my_xml.get_widget('entrySensorPath')
+        label_sensor_path = self.my_xml.get_widget('labelSensorPath')
+        entry_sensor_scaling = self.my_xml.get_widget('entrySensorScaling')
+        label_sensor_scaling = self.my_xml.get_widget('labelSensorScaling')
+        entry_sensor_name = self.my_xml.get_widget('entrySensorName2')
+        button_add_sensor = self.my_xml.get_widget('buttonAddSensorOK')
+
+        combobox_sensor_type.append_text(_('hwmon sensor'))
+        ibm_thermal_sensors = self.act_settings.get_available_ibm_thermal_sensors()
+        for n in ibm_thermal_sensors:
+            combobox_sensor_type.append_text('ibm_thermal_' + n)
+        combobox_sensor_type.set_active(0)
+
+        combobox_sensor_type.connect('changed', combobox_changed, None)
+        entry_sensor_path.connect('changed', text_entries_changed, None)
+        entry_sensor_scaling.connect('changed', text_entries_changed, None)
+        entry_sensor_name.connect('changed', text_entries_changed, None)
+
+        if self.add_sensor_dialog.run() == 1:      # OK was pressed
+            try:
+                new_sensor = {}
+                sensor_type = combobox_sensor_type.get_active()
+                if sensor_type != 0:
+                    sensor_id = ibm_thermal_sensors[sensor_type - 1]
+                else:
+                    sensor_id = entry_sensor_path.get_text()
+                new_sensor[sensor_id] = {'0': '255'}
+                new_sensor['name'] = {sensor_id: entry_sensor_name.get_text()}
+                new_sensor['scaling'] = {
+                    sensor_id: entry_sensor_scaling.get_text()}
+                print new_sensor
+                self.act_settings.add_new_sensor(new_sensor)
+                self.init_thermos()
+                #self.triggers_changed(None, sensor_id)
+            except _, e:
+                print e
+                pass
+
+            print ('Closed dialog')
+
         self.add_sensor_dialog.hide()
 
     def submit_profile_clicked(self, widget, data=None):
         """Submit profile... was clicked"""
+        # TODO: replace this with a file dialog
         if self.act_settings.is_profile_exactly_matched():
             submit_text = self.profile_submit_text % self.profile_model_known_text
         else:
@@ -390,6 +463,7 @@ class TemperatureDialog:
 
     def set_profile_override_controls_sensitivity(self, override):
         """sets if profile settings are configurable by user"""
+        # TODO: fixme
         # for control in [self.hsIntervalDuration, self.hsIntervalDelay,
         # self.hsHysteresis] + self.thermos:
         # for control in [self.hsHysteresis] + self.thermos:
@@ -418,18 +492,18 @@ class TemperatureDialog:
 
     def enable_changed(self, widget, data=None):
         """the user has changed the enabled option"""
-        # show disclaimer
         self.logger.debug(
             'The user has changed enabled to ' + str(self.cbEnable.get_active()))
+        # show disclaimer, if it hasn't been accepted before
         if self.cbEnable.get_active() and not self.disclaimer_accepted:
             disclaimer_dialog = gtk.MessageDialog(parent=self.window, type=gtk.MESSAGE_WARNING,
-                                                  buttons=gtk.BUTTONS_YES_NO,
-                                                  message_format=self.disclaimer_text)
+                                                  buttons=gtk.BUTTONS_YES_NO, message_format=self.disclaimer_text)
             if disclaimer_dialog.run() == gtk.RESPONSE_YES:
                 self.disclaimer_accepted = True
             else:
                 self.cbEnable.set_active(False)
             disclaimer_dialog.destroy()
+        # otherwise, update the settings
         self.options_changed(widget, data)
 
     def override_changed(self, widget, data=None):
@@ -448,16 +522,13 @@ class TemperatureDialog:
     def options_changed(self, widget, data=None):
         """the user has changed an option"""
         self.logger.debug('The user has changed an option')
+        # every time an option is changed we read the status of
+        # all options and send it to tpfancod
         if not self.updating:
             opts = {}
             opts['enabled'] = str(self.cbEnable.get_active())
             opts['override_profile'] = str(self.cbOverride.get_active())
-            self.logger.debug(
-                'Value of enabled: ' + str(self.cbEnable.get_active()))
-
             if self.cbOverride.get_active():
-                #opts['interval_duration'] = self.hsIntervalDuration.get_value() * 1000.0
-                #opts['interval_delay'] = self.hsIntervalDelay.get_value() * 1000.0
                 opts['hysteresis'] = str(int(self.hsHysteresis.get_value()))
             self.logger.debug('Changing tpfancod settings to %s' % (opts))
             self.act_settings.set_settings(opts)

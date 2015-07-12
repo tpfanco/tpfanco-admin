@@ -62,13 +62,6 @@ class tpfan_admin(object):
     # gettext locale directory
     locale_dir = data_dir + 'locales'
 
-    # profile submit url
-    profile_submit_url = ''
-
-    # program to open url
-    #profile_url_opener = data_dir + '/open-url.sh'
-    profile_url_opener = ''
-
     # required tpfand version
     required_daemon_version = '1.0.0'
 
