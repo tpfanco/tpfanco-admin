@@ -74,7 +74,6 @@ class TemperatureDialog:
         self.gettext_domain = tdsettings['gettext_domain']
         self.version = tdsettings['version']
         self.debug = tdsettings['debug']
-        self.profile_submit_enabled = tdsettings['profile_submit_enabled']
 
         self.logger = logging.getLogger(__name__)
         if self.debug:
@@ -140,9 +139,6 @@ class TemperatureDialog:
         self.bSubmitProfile.connect(
             'clicked', self.submit_profile_clicked, None)
         self.dActionArea.set_child_secondary(self.bSubmitProfile, True)
-
-        if not self.profile_submit_enabled:
-            self.bSubmitProfile.hide()
 
         self.bClose = self.my_xml.get_widget('buttonClose')
 

@@ -62,9 +62,6 @@ class tpfan_admin(object):
     # gettext locale directory
     locale_dir = data_dir + 'locales'
 
-    # profile submit enabled?
-    profile_submit_enabled = True
-
     # profile submit url
     profile_submit_url = ''
 
@@ -86,7 +83,6 @@ class tpfan_admin(object):
 
         self.parse_command_line_args()
         tdsettings = {}
-        tdsettings['profile_submit_enabled'] = self.profile_submit_enabled
         tdsettings['pref_filename'] = self.pref_filename
         tdsettings['version'] = self.version
         tdsettings['locale_dir'] = self.locale_dir
