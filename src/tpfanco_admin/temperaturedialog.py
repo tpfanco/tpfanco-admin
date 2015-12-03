@@ -168,6 +168,9 @@ class TemperatureDialog:
 
     def init_thermos(self):
         self.thermos = {}
+
+        for n in self.vbThermometers.get_children():
+            self.vbThermometers.remove(n)
         for n in self.controller.get_temperatures():
             therm = thermometer.Thermometer(self.tdsettings)
             therm.sensor_id = n
@@ -282,12 +285,19 @@ class TemperatureDialog:
 
         def text_entries_changed(widget, data=None):
             button_add_sensor.set_sensitive(False)
+
             if combobox_sensor_type.get_active() != 0:
                 if len(entry_sensor_name.get_text()) != 0:
                     button_add_sensor.set_sensitive(True)
             else:
+                try:
+                    float(entry_sensor_scaling.get_text())
+                    scaling_is_valid = True
+                except ValueError:
+                    scaling_is_valid = False
+
                 if self.act_settings.check_if_hwmon_sensor_exists(entry_sensor_path.get_text()) and \
-                        isinstance(entry_sensor_scaling.get_text(), float) and \
+                        scaling_is_valid and \
                         len(entry_sensor_name.get_text()) != 0:
                     button_add_sensor.set_sensitive(True)
 
@@ -322,7 +332,8 @@ class TemperatureDialog:
                 new_sensor['name'] = {sensor_id: entry_sensor_name.get_text()}
                 new_sensor['scaling'] = {
                     sensor_id: entry_sensor_scaling.get_text()}
-                print new_sensor
+                self.logger.debug(
+                    'Adding new sensors: ' + str(new_sensor))
                 self.act_settings.add_new_sensor(new_sensor)
                 self.init_thermos()
                 #self.triggers_changed(None, sensor_id)
@@ -330,7 +341,8 @@ class TemperatureDialog:
                 print e
                 pass
 
-            print ('Closed dialog')
+        self.logger.debug(
+            'Closed the new sensor dialog')
 
         self.add_sensor_dialog.hide()
 
