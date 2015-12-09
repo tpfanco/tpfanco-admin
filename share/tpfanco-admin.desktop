@@ -1,11 +1,12 @@
 [Desktop Entry]
-Name=ThinkPad Fan Control
-Comment=Shows system temperatures and configures fan trigger points
-Exec=/usr/bin/tpfan-admin
-Icon=/usr/share/tpfan-admin/tpfan-admin-128x128.png
+Name=tpfanco-admin
+Comment=Configuration and monitoring interface for tpfancod.
+
+Exec=/usr/bin/tpfanco-admin_polkit %f
+Icon=/usr/share/tpfanco-admin/tpfanco-admin-128x128.png
 Terminal=false
 Type=Application
 Encoding=UTF-8
 Categories=Application;System;Settings;
-
-Name[de_DE]=tpfanco-admin.desktop
+StartupNotify=true
+Keywords=Fan;ThinkPad;IBM;Lenovo
