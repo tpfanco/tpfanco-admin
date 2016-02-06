@@ -32,8 +32,13 @@ import gtk.glade
 import pygtk
 
 import gtk.gdk
+
+if not ('/usr/lib/python2.7/site-packages' in sys.path):
+    sys.path.append('/usr/lib/python2.7/site-packages')
+
 from tpfanco_admin import temperaturedialog
 pygtk.require('2.0')
+
 
 
 class tpfan_admin(object):
