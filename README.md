@@ -31,9 +31,12 @@ tpfanco-admin is a GTK+ configuration and monitoring interface for tpfancod. tpf
 
 * Python 2.7
 * DBus, GTK+, libglade and GNU gettext with bindings for Python
+* pkexec to obtain superuser privileges
 * tpfancod
 
 ## Installation
+### Dependencies
+* Ubuntu users need to install the following packages: python-gtk2, python-glade2
 
 Packages for the development version are currently not available. To install use
 
@@ -43,7 +46,7 @@ sudo make install
 
 ## Uninstall
 
-You can uninstall tpfancod by running
+You can uninstall tpfanco-admin by running
 
 ```
 sudo make uninstall
@@ -51,10 +54,10 @@ sudo make uninstall
 
 ## Usage
 
-Currently tpfanco-admin must be run with super user privileges
+The installer will automatically create a shortcut to tpfanco-admin. To run from the command line, execute
 
 ```
-sudo tpfanco-admin
+tpfanco-admin_polkit
 ```
 
   
@@ -62,7 +65,7 @@ sudo tpfanco-admin
 
 tpfanco-admin is covered by the GNU General Public License 3.
 
-Copyright (C) 2011-2015 Vladyslav Shtabovenko
+Copyright (C) 2011-2016 Vladyslav Shtabovenko
 Copyright (C) 2007-2009 Sebastian Urban
 
 tpfanco-admin is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
