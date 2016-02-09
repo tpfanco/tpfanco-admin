@@ -266,7 +266,6 @@ class TemperatureDialog:
     def add_sensor_clicked(self, widget, data=None):
         """Add sensor was clicked"""
         self.add_sensor_dialog.set_transient_for(self.window)
-        # TODO: need to finish this
 
         def combobox_changed(widget, data=None):
             entry_sensor_path.set_text('')
@@ -409,6 +408,7 @@ class TemperatureDialog:
 
     def update_settings(self):
         """Updates the shown options from the settings"""
+        self.logger.debug('Updating the shown options from the settings')
         if not self.updating:
             self.updating = True
             opts = self.act_settings.get_settings()
@@ -436,8 +436,6 @@ class TemperatureDialog:
             self.updating = True
             self.hsHysteresis.set_range(
                 *self.act_settings.get_setting_limits('hysteresis'))
-            #self.hsIntervalDelay.set_range(*globals.multiply_list(self.act_settings.get_setting_limits('interval_delay'), 1.0/1000.0))
-            #self.hsIntervalDuration.set_range(*globals.multiply_list(self.act_settings.get_setting_limits('interval_duration'), 1.0/1000.0))
             self.updating = False
 
     def update_model_info(self):
@@ -459,7 +457,7 @@ class TemperatureDialog:
 
     def update_sensitivity(self):
         """sets if settings are changeable"""
-
+        self.logger.debug('Are the settings changeable?')
         if self.cbEnable.get_active():
             self.cbOverride.set_sensitive(True)
             self.set_profile_override_controls_sensitivity(
@@ -475,11 +473,13 @@ class TemperatureDialog:
 
     def set_profile_override_controls_sensitivity(self, override):
         """sets if profile settings are configurable by user"""
-        # TODO: fixme
-        # for control in [self.hsIntervalDuration, self.hsIntervalDelay,
-        # self.hsHysteresis] + self.thermos:
-        # for control in [self.hsHysteresis] + self.thermos:
-        #   control.set_sensitive(override)
+        self.logger.debug('Are profile settings configurable by user?')
+        print self.thermos
+        for control in self.thermos:
+            self.thermos[control].set_sensitive(override)
+
+        self.hsHysteresis.set_sensitive(override)
+        self.bAddSensor.set_sensitive(override)
 
     def set_temperature_unit(self, unit):
         if unit == 'celcius':
